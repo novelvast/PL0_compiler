@@ -127,6 +127,7 @@ public class Parser {
         }
         String name = token.getTokenValue();
         // TODO:语义处理
+        Declaration constDeclaration = new Declaration(name, "CONSTANT", "", DeclarationTableParser.getLevel()+"", DeclarationTableParser.getAdr()+"");
 
         getNextToken();
         if (token.getTokenType() != TokenType.EQUAL) {
@@ -136,10 +137,14 @@ public class Parser {
         getNextToken();
         String valueStr = token.getTokenValue();
         int value = Integer.parseInt(valueStr);
-        // TODO:语义处理
         if (token.getTokenType() != TokenType.NUMBER) {
             System.out.println("常量定义格式错误，缺少常量值");
         }
+        else{
+            constDeclaration.setVal(valueStr);
+        }
+        // TODO:语义处理
+        DeclarationTableParser.add_declaration(constDeclaration);
     }
 
 
@@ -153,20 +158,39 @@ public class Parser {
         }
         String name = token.getTokenValue();
         // TODO:语义处理
+        Declaration varDeclaration = new Declaration(name, "VARIABLE", "", DeclarationTableParser.getLevel()+"", DeclarationTableParser.getAdr()+"");
 
         getNextToken();
         while (true) {
             // 多个逗号分隔的定义
             if (token.getTokenType() == TokenType.COMMA) {
+                DeclarationTableParser.add_declaration(varDeclaration);
                 getNextToken();
                 if (token.getTokenType() != TokenType.IDENT) {
                     System.out.println("变量说明格式错误，缺少变量名");
                 }
                 String name2 = token.getTokenValue();
                 // TODO:语义处理
+                varDeclaration = new Declaration(name2, "VARIABLE", "", DeclarationTableParser.getLevel()+"", DeclarationTableParser.getAdr()+"");
                 getNextToken();
             }
-            else break;
+            else if(token.getTokenType() == TokenType.EQUAL)
+            {
+                getNextToken();
+                String valueStr = token.getTokenValue();
+                int value = Integer.parseInt(valueStr);
+                if (token.getTokenType() != TokenType.NUMBER) {
+                    System.out.println("变量定义格式错误，缺少变量值");
+                }
+                else{
+                    varDeclaration.setVal(valueStr);
+                    getNextToken();
+                }
+            }
+            else {
+                DeclarationTableParser.add_declaration(varDeclaration);
+                break;
+            }
         }
         if (token.getTokenType() != TokenType.SEMICOLON) {
             System.out.println("变量说明格式错误，缺少分号");

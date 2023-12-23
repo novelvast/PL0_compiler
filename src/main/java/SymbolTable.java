@@ -6,12 +6,10 @@ import java.util.List;
  */
 public class SymbolTable {
     List<Symbol> symbolList;
-
     private int ptr = 0;
 
     public SymbolTable() {
-        symbolList = new ArrayList<Symbol>();
-    }
+        symbolList = new ArrayList<Symbol>();}
 
     //向符号表中插入常量
     public void insertConst(String name, String level, String value, String address) {
@@ -30,7 +28,6 @@ public class SymbolTable {
         symbolList.add(new Symbol(name, "PROCEDURE", level, address));
         ptr++;
     }
-
 
 
 }
