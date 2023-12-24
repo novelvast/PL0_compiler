@@ -1,0 +1,2 @@
+Declaration{name='x', kind='VARIABLE', val='', level='0', adr='0'}
+Declaration{name='y', kind='VARIABLE', val='', level='0', adr='1'}

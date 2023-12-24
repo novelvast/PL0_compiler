@@ -9,5 +9,6 @@ public class Main {
         Parser parser = new Parser(lexerOutput);
         parser.startParse();
         DeclarationTableParser.create_table();
+        Parser.create_table();
     }
 }
