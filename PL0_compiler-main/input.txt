@@ -1,0 +1,11 @@
+PROGRAM add
+VAR x, y;
+BEGIN
+    x := 10;
+    y := 20;
+    WHILE x < 100 DO
+    BEGIN
+        x := x + 1;
+        y := y * 2;
+    END;
+END
