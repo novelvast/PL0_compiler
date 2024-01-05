@@ -87,6 +87,7 @@ public class Parser {
      */
     public void startParse() {
         programParser();
+        System.out.println("程序语法分析正确");
     }
 
     /**
@@ -98,10 +99,12 @@ public class Parser {
         getNextToken();
         if (token.getTokenType() != TokenType.PROGRAM) {
            System.out.println("程序首部缺少关键字PROGRAM");
+            System.exit(0);
         }
         getNextToken();
         if (token.getTokenType() != TokenType.IDENT) {
             System.out.println("程序首部缺少标识符");
+            System.exit(0);
         }
 
         // 分程序
@@ -144,6 +147,7 @@ public class Parser {
         }
         if (token.getTokenType() != TokenType.SEMICOLON) {
             System.out.println("常量说明格式错误，缺少分号");
+            System.exit(0);
         }
     }
 
@@ -155,6 +159,7 @@ public class Parser {
         getNextToken();
         if (token.getTokenType() != TokenType.IDENT) {
             System.out.println("常量定义格式错误，缺少常量名");
+            System.exit(0);
         }
         String name = token.getTokenValue();
         // TODO:语义处理
@@ -164,6 +169,7 @@ public class Parser {
         getNextToken();
         if (token.getTokenType() != TokenType.EQUAL) {
             System.out.println("常量定义格式错误，缺少等号");
+            System.exit(0);
         }
 
         getNextToken();
@@ -171,6 +177,7 @@ public class Parser {
         int value = Integer.parseInt(valueStr);
         if (token.getTokenType() != TokenType.NUMBER) {
             System.out.println("常量定义格式错误，缺少常量值");
+            System.exit(0);
         }
         else{
             constDeclaration.setVal(valueStr);
@@ -190,6 +197,7 @@ public class Parser {
         getNextToken();
         if (token.getTokenType() != TokenType.IDENT) {
             System.out.println("变量说明格式错误，缺少变量名");
+            System.exit(0);
         }
         String name = token.getTokenValue();
         // TODO:语义处理
@@ -204,6 +212,7 @@ public class Parser {
                 getNextToken();
                 if (token.getTokenType() != TokenType.IDENT) {
                     System.out.println("变量说明格式错误，缺少变量名");
+                    System.exit(0);
                 }
                 String name2 = token.getTokenValue();
                 // TODO:语义处理
@@ -218,6 +227,7 @@ public class Parser {
                 int value = Integer.parseInt(valueStr);
                 if (token.getTokenType() != TokenType.NUMBER) {
                     System.out.println("变量定义格式错误，缺少变量值");
+                    System.exit(0);
                 }
                 else{
                     varDeclaration.setVal(valueStr);
@@ -234,6 +244,7 @@ public class Parser {
         }
         if (token.getTokenType() != TokenType.SEMICOLON) {
             System.out.println("变量说明格式错误，缺少分号");
+            System.exit(0);
         }
     }
 
@@ -268,6 +279,8 @@ public class Parser {
 
             default:
                 System.out.println("语句类型错误");
+                System.exit(0);
+                break;
         }
     }
 
@@ -281,6 +294,7 @@ public class Parser {
         getNextToken();
         if (token.getTokenType() != TokenType.ASSIGN) {
             System.out.println("赋值语句格式错误");
+            System.exit(0);
         }
 
         // 存储目标变量名
@@ -397,11 +411,13 @@ public class Parser {
 
             if (token.getTokenType() != TokenType.RPAREN) {
                 System.out.println("表达式缺少右括号");
+                System.exit(0);
             }
 
         }
         else {
             System.out.println("表达式缺少因子或因子格式错误");
+            System.exit(0);
         }
         return resultVar;
     }
@@ -416,6 +432,7 @@ public class Parser {
 
         if (token.getTokenType() != TokenType.THEN) {
             System.out.println("条件语句缺少THEN");
+            System.exit(0);
         }
         int conditionJumpId = id; // 记录条件跳转的标识符生成器的值
         // 生成条件为假时的跳转语句，条件跳转的目标标识符暂时设置为0
@@ -451,6 +468,7 @@ public class Parser {
 
             default:
                 System.out.println("条件语句缺少关系运算符");
+                System.exit(0);
                 break;
         }
         // 解析右侧表达式
@@ -473,6 +491,7 @@ public class Parser {
 
         if (token.getTokenType() != TokenType.DO) {
             System.out.println("循环语句缺少DO");
+            System.exit(0);
         }
 
         int conditionJumpId = id; // 记录条件跳转的标识符生成器的值
@@ -522,6 +541,7 @@ public class Parser {
                 }
                 else {
                     System.out.println("复合语句格式错误");
+                    System.exit(0);
                 }
             }
         }

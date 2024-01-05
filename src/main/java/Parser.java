@@ -98,6 +98,7 @@ public class Parser {
         getNextToken();
         if (token.getTokenType() != TokenType.PROGRAM) {
            System.out.println("程序首部缺少关键字PROGRAM");
+           System.exit(0);
         }
         getNextToken();
         if (token.getTokenType() != TokenType.IDENT) {

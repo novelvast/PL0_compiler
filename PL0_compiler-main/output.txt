@@ -18,7 +18,6 @@
 (IDENT,x)
 (LESS,<)
 (NUMBER,100)
-(DO,DO)
 (BEGIN,BEGIN)
 (IDENT,x)
 (ASSIGN,:=)
